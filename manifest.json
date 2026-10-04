@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "图匣 · 批量取图",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "一键抓出当前网页的全部图片（含懒加载、CSS 背景图），按尺寸 / 格式 / 关键词过滤，单选或批量下载。无广告、无追踪、零账号。",
   "permissions": ["activeTab", "scripting", "downloads"],
   "background": {

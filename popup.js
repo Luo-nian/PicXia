@@ -56,6 +56,75 @@
     dlBtn.textContent = selCount ? '下载所选 (' + selCount + ')' : '下载所选';
   }
 
+  // 原地刷新选中态，不重建网格（避免图片重载闪烁）
+  function paintSel() {
+    var cards = grid.children;
+    for (var i = 0; i < cards.length; i++) {
+      var u = cards[i].dataset.url;
+      cards[i].classList.toggle('sel', !!selected[u]);
+    }
+    updateStat(filtered());
+  }
+
+  function buildCard(it) {
+    var card = document.createElement('div');
+    card.className = 'card' + (selected[it.url] ? ' sel' : '');
+    card.title = it.url;
+    card.dataset.url = it.url;
+
+    var img = document.createElement('img');
+    img.loading = 'lazy';
+    img.referrerPolicy = 'no-referrer'; // 绕开大部分防盗链
+    img.src = it.url;
+    img.onerror = function () {
+      // 加载失败不隐藏卡片，换占位块，仍可勾选/下载
+      if (card.classList.contains('noimg')) return;
+      card.classList.add('noimg');
+      var ph = document.createElement('div');
+      ph.className = 'ph';
+      ph.textContent = extOf(it.url).toUpperCase();
+      card.insertBefore(ph, card.firstChild);
+    };
+    card.appendChild(img);
+
+    var badge = document.createElement('span');
+    badge.className = 'badge';
+    badge.textContent = '✓';
+    card.appendChild(badge);
+
+    var ext = document.createElement('span');
+    ext.className = 'ext';
+    ext.textContent = extOf(it.url).toUpperCase();
+    card.appendChild(ext);
+
+    var meta = document.createElement('div');
+    meta.className = 'meta';
+    var dim = document.createElement('span');
+    dim.textContent = it.w ? it.w + '×' + it.h : '未知尺寸';
+    var ops = document.createElement('span');
+    var open = document.createElement('span');
+    open.className = 'open'; open.textContent = '↗'; open.title = '新标签页打开原图';
+    open.onclick = function (e) { e.stopPropagation(); window.open(it.url, '_blank'); };
+    var dl = document.createElement('span');
+    dl.className = 'dl'; dl.textContent = '↓'; dl.title = '下载这一张';
+    dl.onclick = function (e) {
+      e.stopPropagation();
+      chrome.runtime.sendMessage({ type: 'download', items: [it], folder: folderName() });
+      showToast('已提交 1 张下载');
+    };
+    ops.appendChild(open); ops.appendChild(dl);
+    meta.appendChild(dim); meta.appendChild(ops);
+    card.appendChild(meta);
+
+    card.onclick = function () {
+      if (selected[it.url]) delete selected[it.url];
+      else selected[it.url] = true;
+      card.classList.toggle('sel');
+      updateStat(filtered());
+    };
+    return card;
+  }
+
   function render() {
     var list = filtered();
     grid.innerHTML = '';
@@ -63,54 +132,7 @@
     if (!scanning && list.length === 0) {
       emptyMsg.textContent = all.length === 0 ? '这一页没扫到图片' : '过滤后没有剩余图片';
     }
-    list.forEach(function (it) {
-      var card = document.createElement('div');
-      card.className = 'card' + (selected[it.url] ? ' sel' : '');
-      card.title = it.url;
-
-      var img = document.createElement('img');
-      img.loading = 'lazy';
-      img.src = it.url;
-      img.onerror = function () { card.style.display = 'none'; };
-      card.appendChild(img);
-
-      var badge = document.createElement('span');
-      badge.className = 'badge';
-      badge.textContent = '✓';
-      card.appendChild(badge);
-
-      var ext = document.createElement('span');
-      ext.className = 'ext';
-      ext.textContent = extOf(it.url).toUpperCase();
-      card.appendChild(ext);
-
-      var meta = document.createElement('div');
-      meta.className = 'meta';
-      var dim = document.createElement('span');
-      dim.textContent = it.w ? it.w + '×' + it.h : '未知尺寸';
-      var ops = document.createElement('span');
-      var open = document.createElement('span');
-      open.className = 'open'; open.textContent = '↗'; open.title = '新标签页打开原图';
-      open.onclick = function (e) { e.stopPropagation(); window.open(it.url, '_blank'); };
-      var dl = document.createElement('span');
-      dl.className = 'dl'; dl.textContent = '↓'; dl.title = '下载这一张';
-      dl.onclick = function (e) {
-        e.stopPropagation();
-        chrome.runtime.sendMessage({ type: 'download', items: [it], folder: folderName() });
-        showToast('已提交 1 张下载');
-      };
-      ops.appendChild(open); ops.appendChild(dl);
-      meta.appendChild(dim); meta.appendChild(ops);
-      card.appendChild(meta);
-
-      card.onclick = function () {
-        if (selected[it.url]) delete selected[it.url];
-        else selected[it.url] = true;
-        card.classList.toggle('sel');
-        updateStat(filtered());
-      };
-      grid.appendChild(card);
-    });
+    list.forEach(function (it) { grid.appendChild(buildCard(it)); });
     updateStat(list);
   }
 
@@ -170,14 +192,14 @@
     });
   }
 
-  // 事件绑定
-  $('#selAll').onclick = function () { filtered().forEach(function (it) { selected[it.url] = true; }); render(); };
-  $('#selNone').onclick = function () { selected = {}; render(); };
+  // 事件绑定：选区操作一律原地刷新，不重建网格
+  $('#selAll').onclick = function () { filtered().forEach(function (it) { selected[it.url] = true; }); paintSel(); };
+  $('#selNone').onclick = function () { selected = {}; paintSel(); };
   $('#selInv').onclick = function () {
     filtered().forEach(function (it) {
       if (selected[it.url]) delete selected[it.url]; else selected[it.url] = true;
     });
-    render();
+    paintSel();
   };
   $('#rescan').onclick = scan;
   $('#kw').oninput = render;

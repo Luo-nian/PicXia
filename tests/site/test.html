@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>图匣 E2E 测试页</title>
+<style>
+  body { font-family: sans-serif; }
+  .bgdiv { width: 500px; height: 500px; background-image: url('bg.png'); }
+  .spacer { height: 3000px; }
+</style>
+</head>
+<body>
+  <h1>E2E 测试页</h1>
+
+  <!-- 1) 普通 img -->
+  <img src="big.jpg" alt="big">
+  <img src="mid.png" alt="mid">
+  <!-- 2) 小图标（应被最小尺寸过滤掉） -->
+  <img src="tiny-icon.png" alt="tiny">
+
+  <!-- 3) 懒加载：src 是占位，真图在 data-src -->
+  <img src="tiny-icon.png" data-src="lazy-real.jpg" alt="lazy">
+
+  <!-- 4) picture/source srcset -->
+  <picture>
+    <source srcset="pic-source.webp 700w, mid.png 640w">
+    <img src="mid.png" alt="picture">
+  </picture>
+
+  <!-- 5) 内联背景图 -->
+  <div class="bgdiv"></div>
+
+  <!-- 6) 直链原图 -->
+  <a href="linked.jpg">原图链接</a>
+
+  <!-- 7) 超长页面底部的图（滚动懒加载测试） -->
+  <div class="spacer"></div>
+  <img src="bottom.jpg" alt="bottom">
+</body>
+</html>

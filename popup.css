@@ -137,6 +137,19 @@ button.primary:not(:disabled):hover { background: #dbb53a; }
   opacity: .55;
   transition: opacity .12s;
 }
+.card.noimg img { display: none; }
+.card .ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-dim);
+  font-size: 13px;
+  letter-spacing: 1px;
+  background:
+    repeating-linear-gradient(45deg, var(--ink-2) 0 8px, var(--ink) 8px 16px);
+}
 .card.sel { border-color: var(--gold); }
 .card.sel img { opacity: 1; }
 .card .badge {
