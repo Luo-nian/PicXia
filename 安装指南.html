@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>图匣 · 安装指南（开发者模式加载）</title>
+<style>
+  body {
+    background: #1f1b16; color: #f2ead8;
+    font-family: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    max-width: 720px; margin: 0 auto; padding: 32px 24px 60px;
+    line-height: 1.8; font-size: 14px;
+  }
+  h1 {
+    font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif;
+    color: #c9a227; font-weight: 400; letter-spacing: 3px; font-size: 26px;
+    border-bottom: 1px solid #3b2a20; padding-bottom: 12px;
+  }
+  h2 {
+    font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif;
+    color: #c9a227; font-weight: 400; font-size: 18px; margin-top: 36px;
+  }
+  .step { display: flex; gap: 14px; margin: 18px 0; }
+  .num {
+    flex: none; width: 26px; height: 26px; border: 1px solid #c9a227; border-radius: 50%;
+    color: #c9a227; display: flex; align-items: center; justify-content: center; font-size: 13px;
+  }
+  code {
+    background: #2a251e; border: 1px solid #3b2a20; padding: 1px 7px; border-radius: 3px;
+    color: #dbb53a; font-size: 13px;
+  }
+  figure { margin: 16px 0; }
+  figure svg { width: 100%; height: auto; border: 1px solid #3b2a20; border-radius: 6px; background: #262118; }
+  figcaption { color: #b8ad97; font-size: 12px; margin-top: 6px; text-align: center; }
+  .tip { border-left: 3px solid #8a742a; padding: 8px 14px; background: #2a251e; margin: 14px 0; color: #b8ad97; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<h1>图匣 · 安装指南</h1>
+<p>全程约 1 分钟。装的是本机文件夹 <code>D:\PicXia</code>，不联网、不装任何东西。</p>
+
+<h2>第 1 步：打开扩展管理页</h2>
+<div class="step"><div class="num">1</div>
+  <div>在 Edge 地址栏输入 <code>edge://extensions/</code> 回车。</div>
+</div>
+
+<h2>第 2 步：打开「开发人员模式」</h2>
+<div class="step"><div class="num">2</div>
+  <div>看页面<strong>左下角</strong>，把「开发人员模式」开关拨到开。</div>
+</div>
+<figure>
+  <svg viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="680" height="260" fill="#262118"/>
+    <!-- 地址栏 -->
+    <rect x="12" y="10" width="656" height="30" rx="15" fill="#171310" stroke="#3b2a20"/>
+    <text x="34" y="30" fill="#f2ead8" font-size="14" font-family="monospace">edge://extensions/</text>
+    <!-- 左侧栏 -->
+    <rect x="12" y="52" width="200" height="196" fill="#1d1913" stroke="#3b2a20"/>
+    <text x="26" y="80" fill="#b8ad97" font-size="13">扩展</text>
+    <text x="26" y="106" fill="#b8ad97" font-size="13">已安装</text>
+    <text x="26" y="132" fill="#b8ad97" font-size="13">键盘快捷方式</text>
+    <!-- 开发人员模式开关（高亮） -->
+    <rect x="18" y="196" width="188" height="44" fill="none" stroke="#c9a227" stroke-width="2" rx="4"/>
+    <text x="26" y="216" fill="#f2ead8" font-size="12">开发人员模式</text>
+    <rect x="160" y="206" width="36" height="18" rx="9" fill="#c9a227"/>
+    <circle cx="187" cy="215" r="7" fill="#1f1b16"/>
+    <text x="26" y="233" fill="#b8ad97" font-size="10">← 拨到「开」</text>
+    <!-- 右侧主区 -->
+    <rect x="224" y="52" width="444" height="196" fill="#1d1913" stroke="#3b2a20"/>
+    <text x="244" y="82" fill="#b8ad97" font-size="13">你的扩展会列在这里</text>
+  </svg>
+  <figcaption>开关在左侧栏最下面，拨开后上方会多出三个按钮</figcaption>
+</figure>
+
+<h2>第 3 步：加载扩展文件夹</h2>
+<div class="step"><div class="num">3</div>
+  <div>点左上方新出现的「<strong>加载解压缩的扩展</strong>」，在弹出的窗口里选中
+    <code>D:\PicXia</code> 这个文件夹，点「选择文件夹」。</div>
+</div>
+<figure>
+  <svg viewBox="0 0 680 210" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="680" height="210" fill="#262118"/>
+    <rect x="24" y="20" width="176" height="34" rx="4" fill="none" stroke="#c9a227" stroke-width="2"/>
+    <text x="40" y="42" fill="#c9a227" font-size="14">加载解压缩的扩展</text>
+    <rect x="216" y="20" width="120" height="34" rx="4" fill="none" stroke="#3b2a20" stroke-width="2"/>
+    <text x="238" y="42" fill="#b8ad97" font-size="14">打包扩展</text>
+    <rect x="352" y="20" width="100" height="34" rx="4" fill="none" stroke="#3b2a20" stroke-width="2"/>
+    <text x="380" y="42" fill="#b8ad97" font-size="14">更新</text>
+    <!-- 文件选择窗 -->
+    <rect x="90" y="72" width="500" height="120" rx="6" fill="#1d1913" stroke="#3b2a20"/>
+    <rect x="104" y="86" width="330" height="24" rx="3" fill="#171310" stroke="#3b2a20"/>
+    <text x="114" y="103" fill="#f2ead8" font-size="13" font-family="monospace">D:\PicXia</text>
+    <rect x="448" y="160" width="128" height="24" rx="3" fill="#c9a227"/>
+    <text x="478" y="177" fill="#1f1b16" font-size="12">选择文件夹</text>
+    <text x="104" y="140" fill="#b8ad97" font-size="11">选「含 manifest.json 的那一层」，就是 D:\PicXia 本身，别选到 icons 里</text>
+  </svg>
+  <figcaption>注意选的是 D:\PicXia 这一层，不是它里面的子文件夹</figcaption>
+</figure>
+
+<h2>第 4 步：固定图标（顺手做）</h2>
+<div class="step"><div class="num">4</div>
+  <div>点工具栏右侧拼图形状的「扩展」按钮，找到「图匣 · 批量取图」，点右边的
+    <strong>图钉</strong>固定到工具栏。</div>
+</div>
+
+<div class="tip">
+  装完如果列表里「图匣」下面有红色「错误」按钮，点进去把第一行错误发我；没有就直接用。
+</div>
+
+<h2>装完怎么测（建议顺序）</h2>
+<div class="step"><div class="num">1</div>
+  <div>随便开一个图多的页面（新闻图集、微博、电商商品页都行），点工具栏「图匣」图标，
+    应该自动列出图片网格。</div>
+</div>
+<div class="step"><div class="num">2</div>
+  <div>勾「滚动后再扫」→「重扫」，长页面应该能抓到更多懒加载图。</div>
+</div>
+<div class="step"><div class="num">3</div>
+  <div>点「下载所选」，看 <code>下载\图匣\域名_时间戳\</code> 里图是否齐。</div>
+</div>
+<div class="step"><div class="num">4</div>
+  <div>玩一玩过滤（格式 / 最小尺寸 / 关键词）、反选、单张 ↓ 和 ↗。</div>
+</div>
+
+<div class="tip">
+  实测中任何不对劲（没扫到、漏图、下载失败、界面别扭），直接告诉我现象 + 哪个网站，我来改。
+</div>
+
+</body>
+</html>

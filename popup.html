@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>图匣</h1>
+    <span id="stat" class="stat">扫描中…</span>
+  </header>
+
+  <div class="toolbar">
+    <input id="kw" type="text" placeholder="关键词过滤 URL" spellcheck="false">
+    <label class="minsize" title="只显示宽度和高度都不小于该值的图">
+      ≥<input id="minW" type="number" min="0" step="50" value="150">px
+    </label>
+  </div>
+
+  <div class="toolbar formats" id="formats">
+    <label><input type="checkbox" value="jpg" checked>JPG</label>
+    <label><input type="checkbox" value="png" checked>PNG</label>
+    <label><input type="checkbox" value="webp" checked>WebP</label>
+    <label><input type="checkbox" value="gif" checked>GIF</label>
+    <label><input type="checkbox" value="avif" checked>AVIF</label>
+    <label><input type="checkbox" value="svg" checked>SVG</label>
+    <label><input type="checkbox" value="other" checked>其他</label>
+  </div>
+
+  <div class="actions">
+    <button id="selAll" class="mini">全选</button>
+    <button id="selNone" class="mini">清空</button>
+    <button id="selInv" class="mini">反选</button>
+    <label class="scroll-opt" title="先自动滚动页面触发懒加载，再扫描">
+      <input id="autoScroll" type="checkbox">滚动后再扫
+    </label>
+    <button id="rescan" class="mini">重扫</button>
+    <span class="spacer"></span>
+    <button id="download" class="primary" disabled>下载所选</button>
+  </div>
+
+  <main id="grid"></main>
+
+  <div id="empty" class="empty hidden">
+    <p id="emptyMsg">这一页没扫到图片</p>
+    <p class="hint">长页面 / 懒加载页面：勾选「滚动后再扫」点重扫</p>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
